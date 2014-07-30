@@ -1,0 +1,47 @@
+<head>
+  <title>BIP39 Passphrase Generator</title>
+  <style>
+body {
+  padding: 20px;
+  width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+  vertical-align:middle;
+}
+
+code {
+  min-height: 20px;
+  display: block;
+  padding: 30px;
+  background: lightgrey;
+  margin-bottom: 10px;
+}
+  </style>
+</head>
+
+<body>
+<h1>BIP39 シードの生成</h1>
+<font size="5"><code></code></font>
+<br>
+<button>シードを生成</button>
+<br>
+<div id="bits">
+<form>
+<input type="radio" name="bits" value="128" checked="checked">128ビット
+<input type="radio" name="bits" value="160">160ビット
+<input type="radio" name="bits" value="192">192ビット
+<input type="radio" name="bits" value="224">224ビット
+<input type="radio" name="bits" value="256">256ビット
+</form>
+</div>
+<body>
+
+<script src="./bip39.js"></script>
+<script>
+  var bits = document.getElementById('bits').value;
+  
+  var bip39 = new BIP39('en')
+  document.querySelector('button').addEventListener('click', function(){
+    document.querySelector('code').innerHTML = bip39.generateMnemonic(128)
+  })
+</script>
