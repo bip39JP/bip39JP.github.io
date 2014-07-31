@@ -1,47 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>BIP39 Passphrase Generator</title>
-  <style>
-body {
-  padding: 20px;
-  width: 1400px;
-  margin: 0 auto;
-  text-align: center;
-  vertical-align:middle;
-}
+    <meta charset="utf-8" />
+    <title>BIP39 ã‚·ãƒ¼ãƒ‰ç”Ÿæˆ</title>
+    <!--<link rel="stylesheet" type="text/css" href="" />-->
+    <script src="./bip39.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <style>
+        body {
+            padding: 20px;
+            width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            vertical-align: middle;
+        }
 
-code {
-  min-height: 20px;
-  display: block;
-  padding: 30px;
-  background: lightgrey;
-  margin-bottom: 10px;
-}
-  </style>
+        div.code {
+            min-height: 20px;
+            display: block;
+            padding: 30px;
+            background: lightgrey;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script type="text/javascript">
+        var bip39 = new BIP39('en');
+
+        function generate() {
+            var value = $("input[name='bits']:checked").val();
+            if (value) {
+                value = parseInt(value);
+                var seed = bip39.generateMnemonic(value);
+                $("div.code").html(seed);
+            }
+            return false;
+        }
+    </script>
 </head>
-
 <body>
-<h1>BIP39 ƒV[ƒh‚Ì¶¬</h1>
-<font size="5"><code></code></font>
-<br>
-<button>ƒV[ƒh‚ğ¶¬</button>
-<br>
-<div id="bits">
-<form>
-<input type="radio" name="bits" value="128" checked="checked">128ƒrƒbƒg
-<input type="radio" name="bits" value="160">160ƒrƒbƒg
-<input type="radio" name="bits" value="192">192ƒrƒbƒg
-<input type="radio" name="bits" value="224">224ƒrƒbƒg
-<input type="radio" name="bits" value="256">256ƒrƒbƒg
-</form>
-</div>
-<body>
-
-<script src="./bip39.js"></script>
-<script>
-  var bits = document.getElementById('bits').value;
-  
-  var bip39 = new BIP39('en')
-  document.querySelector('button').addEventListener('click', function(){
-    document.querySelector('code').innerHTML = bip39.generateMnemonic(128)
-  })
-</script>
+    <h1>BIP39 ã‚·ãƒ¼ãƒ‰ã®ç”Ÿæˆ</h1>
+    <form onsubmit="return false;">
+        <div>
+            <input type="radio" name="bits" value="128" checked="checked">128ãƒ“ãƒƒãƒˆ
+            <input type="radio" name="bits" value="160">160ãƒ“ãƒƒãƒˆ
+            <input type="radio" name="bits" value="192">192ãƒ“ãƒƒãƒˆ
+            <input type="radio" name="bits" value="224">224ãƒ“ãƒƒãƒˆ
+            <input type="radio" name="bits" value="256">256ãƒ“ãƒƒãƒˆ
+        </div>
+        <br />
+        <button onclick="generate();">ã‚·ãƒ¼ãƒ‰ã‚’ç”Ÿæˆ</button>
+        <br />
+        <font size="5"><div class="code"></div></font>
+    </form>
+</body>
+</html>
