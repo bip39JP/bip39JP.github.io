@@ -11,9 +11,28 @@ self.en = "[\n  \"あい\",\n  \"あいこくしん\",\n  \"あう\",\n  \"あ�
 return self})()
 
 function BIP39(language) {
-  language = language || 'en'
   this.wordlist = JSON.parse(wordlists[language])
+  var temp = undefined;
+  function setWordlist() {
+    $.ajax({
+        async: false,
+        cache: false,
+        url: 'http://bip39jp.github.io/JP_wordlist.txt',
+        type: 'GET',
+        success: function(data) {
+          temp = data.split('\n');
+        },
+        error: function(data) {
+          this.wordlist = JSON.parse(wordlists[language])
+        },
+    });
+  }
+  setWordlist();
+  // override
+  if (temp) this.wordlist = temp;
 }
+
+
 
 BIP39.prototype.mnemonicToSeed = function(mnemonic, password) {
   var options = {iterations: 2048, hasher: CryptoJS.algo.SHA512, keySize: 512/32}
